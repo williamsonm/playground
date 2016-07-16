@@ -12,3 +12,5 @@ object eq {
   val r: Boolean = x === y // false
   val b: Boolean = x === x // true
 }
+
+class&(val x:Unit)extends AnyVal

@@ -15,7 +15,10 @@ libraryDependencies ++= Seq(
   "co.fs2" %% "fs2-core" % "0.9.0-M2",
   "co.fs2" %% "fs2-io" % "0.9.0-M2",
 
-  "net.virtual-void" %% "speed" % "15" % "provided"
+  "net.virtual-void" %% "speed" % "15" % "provided",
+
+  "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4",
+  "com.sun.jna" % "jna" % "3.0.9"
 )
 
 scalaVersion := "2.11.8"
