@@ -20,6 +20,14 @@ foo = Sub Dict
 class Lifting p f where
   lifting :: p a :- p (f a)
 
+type m ~> n = forall a. m a -> n a
+
+class Lifting Monad t => MFunctor t where
+  hoist :: (Monad m, Monad n) => (m ~> n) -> (t m ~> t n)
+
 class MonadTrans t where
-  lift :: Monad m => m a -> t m a
+  lift :: Monad m => m ~> t m
   transform :: Monad m :- Monad (t m)
+
+class (Lifting Monad t, MonadTrans t) => MPointed t
+instance (Lifting Monad t, MonadTrans t) => MPointed t
