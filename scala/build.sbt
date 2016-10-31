@@ -20,7 +20,9 @@ libraryDependencies ++= Seq(
   "net.virtual-void" %% "speed" % "15" % "provided",
 
   "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4",
-  "com.sun.jna" % "jna" % "3.0.9"
+  "com.sun.jna" % "jna" % "3.0.9",
+
+  "org.scalatest" %% "scalatest" % "2.2.4" % "test"
 )
 
 scalaVersion := "2.11.8"
