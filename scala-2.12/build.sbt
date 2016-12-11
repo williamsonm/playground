@@ -1,4 +1,4 @@
-scalaVersion := "2.12.0-M5"
+scalaVersion := "2.12.1"
 
 lazy val commonScalacOptions = Seq(
   "-deprecation",
@@ -19,4 +19,16 @@ lazy val commonScalacOptions = Seq(
   "-Xfuture"
 )
 
-// lazy val core = project.in(file(".")).settings(scalacOptions ++= commonScalacOptions)
+libraryDependencies ++= Seq(
+  "org.typelevel" %% "cats" % "0.8.1"
+)
+
+addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.3")
+// addCompilerPlugin("com.milessabin" % "si2712fix-plugin_2.11.8" % "1.2.0")
+// addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
+
+lazy val core = project.in(file(".")).settings(scalacOptions ++= commonScalacOptions)
+
+initialCommands in console := """
+  import cats._, cats.implicits._
+  """
