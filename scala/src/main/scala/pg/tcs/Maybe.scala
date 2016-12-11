@@ -1,6 +1,6 @@
 package tcs
 
-sealed trait Maybe[A]
+sealed trait Maybe[A] extends Product with Serializable
 final case class Just[A](a: A) extends Maybe[A]
 final case class Nothin[A]() extends Maybe[A]
 
@@ -23,6 +23,7 @@ object Maybe {
       case Nothin() => Nothin[B]()
     }
   }
+  def nothin[A](): Nothin[A] = Nothin[A]
 }
 
 object MaybeUsage {
@@ -38,4 +39,10 @@ object MaybeUsage {
   def f(x: Int): String = s"$x + 3"
 
   x.map(f) == Just("3 + 3")
+
+  def catMaybes[A](xs: List[Maybe[A]]): List[A] = xs match {
+    case Just(h) :: t => h :: catMaybes(t)
+    case _ :: t => catMaybes(t)
+    case _ => List.empty
+  }
 }
