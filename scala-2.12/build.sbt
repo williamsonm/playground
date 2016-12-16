@@ -16,6 +16,7 @@ lazy val commonScalacOptions = Seq(
   // "-Ywarn-dead-code",
   "-Ywarn-numeric-widen",
   "-Ywarn-value-discard",
+  "-Ypartial-unification",
   "-Xfuture"
 )
 

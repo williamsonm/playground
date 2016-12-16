@@ -21,5 +21,9 @@ object Traverses {
 
   traverse(l)(i => Future { i * 2}): Future[List[Int]]
   traverse(l)(i => if (i % 2 == 0) Some(i/2) else None): Option[List[Int]]
+
+  // old way
   traverse[Either[String, ?], Int, Double](l)(i => if (i == 0) Left("oops") else Right(1.0 / i)): Either[String, List[Double]]
+  // with -Ypartial-unification
+  traverse(l)(i => if (i == 0) Left("oops") else Right(1.0 / i))
 }
