@@ -1,2 +1,8 @@
+{-# LANGUAGE OverloadedStrings #-}
+
+import Test.Tasty
+import CacheSpec
+
 main :: IO ()
-main = putStrLn "Test suite not yet implemented"
+main =
+  defaultMain (testGroup "Cache Tests" [shortTests, longTests])
