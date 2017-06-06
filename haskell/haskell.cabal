@@ -39,13 +39,14 @@ library
 test-suite haskell-test
   type:                exitcode-stdio-1.0
   hs-source-dirs:      test
-  main-is:             Spec.hs
+  main-is:             test.hs
   other-modules:       CacheSpec
   build-depends:       base
                      , bytestring
                      , haskell
                      , lens
                      , tasty
+                     , tasty-auto
                      , tasty-hunit
                      , wreq
   ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
