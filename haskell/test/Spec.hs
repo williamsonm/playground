@@ -5,4 +5,4 @@ import CacheSpec
 
 main :: IO ()
 main =
-  defaultMain (testGroup "Cache Tests" [shortTests, longTests])
+  defaultMain (testGroup "Tests" [test_cache])
