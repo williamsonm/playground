@@ -18,13 +18,18 @@ library
   ghc-options:         -Wall
   exposed-modules:     Lib
                      , Overloaded
+                     , SimpleError
   build-depends:       base >= 4.7 && < 5
                      , aeson
                      , bytestring
                      , constraints
+                     , hashable
+                     , haxl
                      , http-types
                      , lens
                      , tardis
+                     , text
+                     , random
                      , wreq
   default-language:    Haskell2010
 
