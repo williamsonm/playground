@@ -21,6 +21,7 @@ library
                      , SimpleError
   build-depends:       base >= 4.7 && < 5
                      , aeson
+                     , async
                      , bytestring
                      , constraints
                      , hashable
