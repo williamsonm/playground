@@ -21,7 +21,8 @@ lazy val commonScalacOptions = Seq(
 )
 
 libraryDependencies ++= Seq(
-  "org.typelevel" %% "cats" % "0.8.1"
+  "org.typelevel" %% "cats-core" % "1.0.0-MF",
+  "org.typelevel" %% "cats-free" % "1.0.0-MF"
 )
 
 addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.3")
