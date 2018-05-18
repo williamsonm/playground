@@ -8,15 +8,14 @@ object mapswitch {
     UserId(2) -> List(AddressId(11), AddressId(13))
   )
 
-  val result: Map[AddressId, List[UserId]] = ???
+  val zresult: Map[AddressId, List[UserId]] = switch(m)
 
   def switch(m: Map[UserId, List[AddressId]]): Map[AddressId, List[UserId]] = {
     val empty = Map.empty[AddressId, List[UserId]]
     m.foldLeft(empty) { case (result, (user, addresses)) =>
-
-      val as: List[UserId] = addresses.map(a => result.getOrElse(a, List.empty)).flatten
-
-      result
+      result ++ addresses.map(a =>
+        (a, result.getOrElse(a, List.empty) :+ user)
+      )
     }
   }
 }

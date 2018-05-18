@@ -5,7 +5,7 @@ import scala.concurrent.Future
 // scala.bythebay.io: Adelbert Chang, Spoiled by higher-kinded types
 // https://www.youtube.com/watch?v=t7bOKAIQG4Q
 
-object Traverses {
+object traverses {
   def traverseFuture[A, B](as: List[A])(f: A => Future[B]): Future[List[B]] = {
     Future.sequence(as map f)
   }

@@ -1,4 +1,4 @@
-import cats._, cats.implicits._, cats.data._
+import cats._, cats.data._
 
 trait Calc[F[_]] {
   def lit(i: Int): F[Int]
@@ -18,7 +18,7 @@ object CalcProgram extends App {
   object IdCalc extends Calc[Id] {
     def lit(i: Int): Id[Int] = i
 
-    def add(l: Id[Int], r: Id[Int]): Id[Int] = (l + r)
+    def add(l: Id[Int], r: Id[Int]): Id[Int] = l + r
 
     def sqrt(i: Id[Int]): Id[Double] = math.sqrt(i.toDouble)
   }
