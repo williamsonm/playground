@@ -28,6 +28,7 @@ library
                      , haxl
                      , http-types
                      , lens
+                     , parallel-io
                      , tardis
                      , text
                      , random
