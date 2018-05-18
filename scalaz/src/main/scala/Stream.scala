@@ -14,7 +14,7 @@ object Stream extends App {
   val cancel = new java.util.concurrent.atomic.AtomicBoolean(false)
 
   val p = time.awakeEvery(1.second)
-  p.map(println).run.runAsyncInterruptibly(_ => (), cancel)
+  p.map(println).run.unsafePerformAsyncInterruptibly(_ => (), cancel)
 
   Thread.sleep(4000)
   println("Killing")
@@ -28,7 +28,7 @@ object Stream2 extends App {
   implicit val sc = new java.util.concurrent.ScheduledThreadPoolExecutor(1)
 
   val p = time.awakeEvery(1.second)
-  val done = p.map(println(_)).run.runAsyncInterruptibly(_ => ())
+  val done = p.map(println(_)).run.unsafePerformAsyncInterruptibly(_ => ())
 
   Thread.sleep(4000)
   println("Killing")
@@ -56,7 +56,7 @@ object Junk extends App {
 
     Task.fork(t).
     // t.
-      runAsyncInterruptibly({
+      unsafePerformAsyncInterruptibly({
       case e => logger.error("wut")
     }, neverMind)
 

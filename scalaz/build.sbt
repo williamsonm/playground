@@ -1,6 +1,6 @@
 libraryDependencies ++= Seq(
-  "org.scalaz" %% "scalaz-core" % "7.1.11",
-  "org.scalaz.stream" %% "scalaz-stream" % "0.8",
+  "org.scalaz" %% "scalaz-core" % "7.2.16",
+  "org.scalaz.stream" %% "scalaz-stream" % "0.8a",
   "io.verizon.journal" %% "core" % "2.3.16"
 
   // "com.chuusai" %% "shapeless" % "2.3.1",
