@@ -25,7 +25,11 @@ executable wreqd-exe
   main-is:             Main.hs
   ghc-options:         -Wall -threaded -rtsopts -with-rtsopts=-N
   build-depends:       base
+                     , aeson
                      , http-client
+                     , http-client-openssl
+                     , HsOpenSSL
+                     , lens
                      , wreq
                      , wreqd
   default-language:    Haskell2010
