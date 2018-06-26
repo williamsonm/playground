@@ -15,8 +15,22 @@ repositories {
   mavenCentral()
 }
 
+apply plugin: 'kotlin-kapt' //optional
+
 dependencies {
-  compile("org.jetbrains.kotlin:kotlin-stdlib:1.1.51")
+  compile("org.jetbrains.kotlin:kotlin-stdlib:1.2.50")
+
+  compile 'io.arrow-kt:arrow-core:0.7.2'
+  compile 'io.arrow-kt:arrow-syntax:0.7.2'
+  compile 'io.arrow-kt:arrow-typeclasses:0.7.2'
+  compile 'io.arrow-kt:arrow-data:0.7.2'
+  compile 'io.arrow-kt:arrow-instances-core:0.7.2'
+  compile 'io.arrow-kt:arrow-instances-data:0.7.2'
+
+  testCompile 'io.kotlintest:kotlintest-runner-junit5:3.1.7'
+}
+test {
+  useJUnitPlatform()
 }
 
 apply {
