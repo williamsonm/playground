@@ -1,9 +1,9 @@
 import org.scalafmt.sbt.ScalafmtPlugin.scalafmtConfigSettings
 
-name := "typed-config"
+name := "fs2-playground"
 organization := "com.pennwell"
 organizationName := "PennWell Corporation"
-description := "Typed config with knobs"
+description := "Don't cross the streams..."
 
 fork := true
 
@@ -43,7 +43,23 @@ lazy val core = project.in(file("."))
     libraryDependencies ++= coreDependencies ++ testDependencies
   )
 
-wartremoverErrors in (Compile, compile) ++= Warts.unsafe
+  wartremoverErrors in (Compile, compile) ++= Seq(
+    Wart.AsInstanceOf,
+    Wart.DefaultArguments,
+    Wart.EitherProjectionPartial,
+    Wart.IsInstanceOf,
+    Wart.TraversableOps,
+    Wart.NonUnitStatements,
+    Wart.Null,
+    Wart.OptionPartial,
+    Wart.Product,
+    Wart.Return,
+    Wart.Serializable,
+    Wart.StringPlusAny,
+    Wart.Throw,
+    Wart.TryPartial,
+    Wart.Var
+  )
 
 addCommandAlias("validate", ";compile;test;scalastyle;test:scalastyle")
 addCommandAlias("report",   ";clean;coverage;test;coverageReport")
