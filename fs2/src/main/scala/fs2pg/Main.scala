@@ -5,48 +5,50 @@ import cats.implicits._
 import fs2.{Pipe, Stream}
 import org.slf4j.LoggerFactory
 
-final case class Result(value: String)
-
 object Main extends IOApp {
+
+  type Path = String
 
   private val logger = LoggerFactory.getLogger(getClass)
 
   def run(args: List[String]): IO[ExitCode] =
     for {
-      result <- multiStream.compile.toList
+      result <- multiStream.compile.foldMonoid
       _ <- IO(logger.info(s"result: $result"))
       exitCode <- IO(logger.info("done")).as(ExitCode.Success)
     } yield exitCode
 
-  def multiStream: Stream[IO, Result] = {
-    val input = runQuery().through(convert)
+  def multiStream: Stream[IO, Stats] =
+    runQuery()
+      .through(convert)
+      .observe(save)
+      .through(stats)
 
-    input.flatMap { in =>
-      val left = Stream(in).through(save)
-      val right = Stream(in).through(stats)
-
-      left >> right
-    }
-  }
-
-  def runQuery(): Stream[IO, String] = {
+  def runQuery(): Stream[IO, Path] = {
     logger.info("run query")
-    Stream("/content/ogj/en/one", "/content/ogj/en/two")
+    val paths = List("/content/ogj/en/one", "/content/ogj/en/two")
+    Stream.emits(paths).repeatN(1000)
   }
 
-  def convert: Pipe[IO, String, String] =
+  def convert: Pipe[IO, Path, ConversionResult] =
     _.map(s => {
       val pageName = s.substring(s.lastIndexOf("/") + 1)
-      logger.info(s"convert: $pageName")
-      pageName
+      logger.trace(s"convert: $pageName")
+      ConversionSuccess(pageName)
     })
 
-  def save: Pipe[IO, String, Unit] =
-    _.map(s => logger.info(s"saving: $s"))
+  def saveIO(path: String): IO[Unit] =
+    IO(logger.info(s"saving: $path"))
 
-  def stats: Pipe[IO, String, Result] =
+  def save: Pipe[IO, ConversionResult, Unit] =
+    _.map {
+      case ConversionSuccess(path) => logger.trace(s"saving: $path")
+      case _ =>
+    }
+
+  def stats: Pipe[IO, ConversionResult, Stats] =
     _.map(s => {
-      logger.info(s"stats: $s")
-      Result(s)
+      logger.trace(s"stats: $s")
+      Stats(1, 0)
     })
 }
