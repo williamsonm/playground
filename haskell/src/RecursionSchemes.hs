@@ -65,7 +65,7 @@ data Expr' a
   | Literal' Lit
   deriving (Show, Eq, Functor)
 
-data Term f = In (f (Term f))
+newtype Term f = In (f (Term f))
 
 out :: Term f -> f (Term f)
 out (In t) = t

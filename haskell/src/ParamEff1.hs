@@ -32,15 +32,15 @@ get :: MonadMState var s m => var -> m s
 get var = modify var id
 
 put :: MonadMState var s m => var -> s -> m ()
-put var s = modify var (const s) >> return ()
+put var s = void (modify var (const s))
 
 liftM :: Monad m => (a -> b) -> m a -> m b
-liftM f m = m >>= return . f
+liftM f m = f <$> m
 
 -- The signature is inferred
 ts1 :: MonadMState Var1 Char m => m Char
 ts1 = do
-  x <- liftM succ $ get Var1
+  x <- succ <$> get Var1
   put Var1 'c'
   -- put Var1 1    -- ERR: Char is not a number
   -- liftM not $ get Var1 -- ERR: Could not deduce (MonadMState Var1 Bool m)
@@ -79,7 +79,7 @@ instance Functor (Eff f) where
 
 instance Applicative (Eff f) where
   pure = Pure
-  m1 <*> m2 = do {f <- m1; x <- m2; return (f x)}
+  m1 <*> m2 = do {f <- m1; f <$> m2}
 
 instance Monad (Eff f) where
   return = Pure
@@ -204,7 +204,7 @@ instance Functor (EffP f s1 s2) where
 
 instance Applicative (EffP f s s) where
   pure = PureP
-  m1 <*> m2 = do {f <- m1; x <- m2; return (f x)}
+  m1 <*> m2 = do {f <- m1; f <$> m2}
 
 instance Monad (EffP f s s) where
   return = PureP

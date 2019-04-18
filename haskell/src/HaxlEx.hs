@@ -8,7 +8,7 @@
 
 -- Incidental:
 {-# LANGUAGE FlexibleInstances #-}
-{-# LANGUAGE TypeSynonymInstances #-}
+-- {-# LANGUAGE TypeSynonymInstances #-}
 
 module HaxlEx where
 

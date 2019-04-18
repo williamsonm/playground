@@ -33,7 +33,7 @@ class Applicative m => Monad m where
   (>>=) :: m a -> (a -> m b) -> m b
 
   (>>) :: m a -> m b -> m b
-  ma >> mb = ma >>= (\_ -> mb)
+  ma >> mb = ma >> mb
 
 liftA2 :: Applicative f => (a -> b -> c) -> f a -> f b -> f c
 liftA2 f fa fb = f <$> fa <*> fb

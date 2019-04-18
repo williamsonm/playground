@@ -11,5 +11,5 @@ main = do
   stopGlobalPool
 
   -- Example of an explicitly sized and passed pool. Use 2 threads.
-  Local.withPool 2 $ \pool -> do
+  Local.withPool 2 $ \pool ->
     Local.parallel_ pool [putStrLn "Goodbype", putStrLn "World"]
