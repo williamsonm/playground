@@ -1,6 +1,6 @@
 import cats.syntax.all._
 import cats.effect._
-import org.slf4j.LoggerFactory;
+import org.slf4j.LoggerFactory
 
 object Main extends IOApp {
 
