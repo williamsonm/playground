@@ -1,14 +1,15 @@
-use std::process::Command;
+#![feature(proc_macro_hygiene)]
+#![feature(decl_macro)]
+
+#[macro_use] extern crate rocket;
+
+#[cfg(test)] mod tests;
+
+#[get("/")]
+fn hello() -> &'static str {
+    "Hello, world!"
+}
 
 fn main() {
-    let output =
-        Command::new("sh")
-                .arg("-c")
-                .arg("echo hello")
-                .output()
-                .expect("failed to execute process");
-
-    println!("status: {}", output.status);
-    println!("stdout: {}", String::from_utf8_lossy(&output.stdout));
-    println!("stderr: {}", String::from_utf8_lossy(&output.stderr));
+    rocket::ignite().mount("/", routes![hello]).launch();
 }
