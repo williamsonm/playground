@@ -1,0 +1,168 @@
+{
+  "acpitz-acpi-0":{
+     "Adapter": "ACPI interface",
+     "temp1":{
+        "temp1_input": 27.800,
+        "temp1_crit": 105.000
+     },
+     "temp2":{
+        "temp2_input": 29.800,
+        "temp2_crit": 105.000
+     }
+  },
+  "it8728-isa-0a30":{
+     "Adapter": "ISA adapter",
+     "in0":{
+        "in0_input": 0.024,
+        "in0_min": 0.000,
+        "in0_max": 3.060,
+        "in0_alarm": 0.000,
+        "in0_beep": 0.000
+     },
+     "in1":{
+        "in1_input": 2.064,
+        "in1_min": 0.000,
+        "in1_max": 3.060,
+        "in1_alarm": 0.000,
+        "in1_beep": 0.000
+     },
+     "in2":{
+        "in2_input": 2.052,
+        "in2_min": 0.000,
+        "in2_max": 3.060,
+        "in2_alarm": 0.000,
+        "in2_beep": 0.000
+     },
+     "in3":{
+        "in3_input": 2.028,
+        "in3_min": 0.000,
+        "in3_max": 3.060,
+        "in3_alarm": 0.000,
+        "in3_beep": 0.000
+     },
+     "in4":{
+        "in4_input": 0.012,
+        "in4_min": 0.000,
+        "in4_max": 3.060,
+        "in4_alarm": 0.000,
+        "in4_beep": 0.000
+     },
+     "in5":{
+        "in5_input": 1.776,
+        "in5_min": 0.000,
+        "in5_max": 3.060,
+        "in5_alarm": 0.000,
+        "in5_beep": 0.000
+     },
+     "in6":{
+        "in6_input": 1.500,
+        "in6_min": 0.000,
+        "in6_max": 3.060,
+        "in6_alarm": 0.000,
+        "in6_beep": 0.000
+     },
+     "3VSB":{
+        "in7_input": 3.384,
+        "in7_min": 0.000,
+        "in7_max": 6.120,
+        "in7_alarm": 0.000,
+        "in7_beep": 0.000
+     },
+     "Vbat":{
+        "in8_input": 3.288
+     },
+     "fan1":{
+        "fan1_input": 0.000,
+        "fan1_min": 0.000,
+        "fan1_alarm": 0.000,
+        "fan1_beep": 1.000
+     },
+     "fan2":{
+        "fan2_input": 0.000,
+        "fan2_min": 0.000,
+        "fan2_alarm": 0.000,
+        "fan2_beep": 1.000
+     },
+     "fan3":{
+        "fan3_input": 0.000,
+        "fan3_min": 0.000,
+        "fan3_alarm": 0.000,
+        "fan3_beep": 1.000
+     },
+     "fan4":{
+        "fan4_input": 0.000,
+        "fan4_min": 0.000,
+        "fan4_alarm": 0.000,
+        "fan4_beep": 1.000
+     },
+     "fan5":{
+        "fan5_input": 0.000,
+        "fan5_min": 0.000,
+        "fan5_alarm": 0.000,
+        "fan5_beep": 1.000
+     },
+     "temp1":{
+        "temp1_input": 38.000,
+        "temp1_max": 127.000,
+        "temp1_min": 127.000,
+        "temp1_alarm": 0.000,
+        "temp1_type": 4.000,
+        "temp1_offset": 0.000,
+        "temp1_beep": 0.000
+     },
+     "temp2":{
+        "temp2_input": 49.000,
+        "temp2_max": 127.000,
+        "temp2_min": 127.000,
+        "temp2_alarm": 0.000,
+        "temp2_type": 4.000,
+        "temp2_offset": 0.000,
+        "temp2_beep": 0.000
+     },
+     "temp3":{
+        "temp3_input": -128.000,
+        "temp3_max": 127.000,
+        "temp3_min": 127.000,
+        "temp3_alarm": 0.000,
+        "temp3_type": 6.000,
+        "temp3_offset": 0.000,
+        "temp3_beep": 0.000
+     },
+     "intrusion0":{
+        "intrusion0_alarm": 1.000
+     }
+  },
+  "coretemp-isa-0000":{
+     "Adapter": "ISA adapter",
+     "Package id 0":{
+        "temp1_input": 43.000,
+        "temp1_max": 80.000,
+        "temp1_crit": 100.000,
+        "temp1_crit_alarm": 0.000
+     },
+     "Core 0":{
+        "temp2_input": 36.000,
+        "temp2_max": 80.000,
+        "temp2_crit": 100.000,
+        "temp2_crit_alarm": 0.000
+     },
+     "Core 1":{
+        "temp3_input": 37.000,
+        "temp3_max": 80.000,
+        "temp3_crit": 100.000,
+        "temp3_crit_alarm": 0.000
+     },
+     "Core 2":{
+        "temp4_input": 43.000,
+        "temp4_max": 80.000,
+        "temp4_crit": 100.000,
+        "temp4_crit_alarm": 0.000
+     },
+     "Core 3":{
+        "temp5_input": 39.000,
+        "temp5_max": 80.000,
+        "temp5_crit": 100.000,
+        "temp5_crit_alarm": 0.000
+     }
+  }
+}
