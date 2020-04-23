@@ -1,9 +1,14 @@
 import cats.effect._
-import io.circe.parser._
+import cats.implicits._
 import skunk.Session
 import natchez.Trace.Implicits.noop
+import org.slf4j.LoggerFactory
+import fs2.Pipe
+import cats.effect.concurrent.Deferred
 
-object Hello extends IOApp {
+object Main extends IOApp {
+
+  val logger = LoggerFactory.getLogger(getClass)
 
   val session: Resource[IO, Session[IO]] =
     Session.single(
@@ -14,9 +19,19 @@ object Hello extends IOApp {
       password = Some("banana")
     )
 
-  def run(args: List[String]): IO[ExitCode] =
-    for {
-      sensors <- Sensors.getSensorData().map(decode[Interfaces])
-      _ <- IO(println(s"sensors: ${sensors}"))
-    } yield ExitCode.Success
+  def logSensorData: Pipe[IO, Sensor, Unit] =
+    _.map(sensor => logger.info(s"${sensor.name} => ${sensor.temp}"))
+
+  def run(args: List[String]): IO[ExitCode] = {
+    val program = fs2.Stream.eval(Deferred[IO, Unit]).flatMap { switch =>
+      sys.ShutdownHookThread {
+        logger.info("shutting down")
+        switch.complete(()).unsafeRunAsyncAndForget()
+      }
+      Sensors.sensorStream
+        .observe(logSensorData)
+        .interruptWhen(switch.get.attempt)
+    }
+    program.compile.drain.as(ExitCode.Success)
+  }
 }

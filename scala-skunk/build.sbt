@@ -6,6 +6,8 @@ val Http4sVersion = "0.21.3"
 val LogbackVersion = "1.2.3"
 val Specs2Version = "4.8.3"
 
+fork in run := true
+
 lazy val root = (project in file("."))
   .settings(
     organization := "com.example",
