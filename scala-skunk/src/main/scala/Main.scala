@@ -3,19 +3,19 @@ import cats.effect._
 import skunk._
 import skunk.implicits._
 import skunk.codec.all._
-import natchez.Trace.Implicits.noop                          // (1)
+import natchez.Trace.Implicits.noop // (1)
 import java.time.LocalDateTime
 import java.time.OffsetDateTime
 
 object Hello extends IOApp {
 
   val session: Resource[IO, Session[IO]] =
-    Session.single(                                          // (2)
-      host     = "localhost",
-      port     = 5432,
-      user     = "jimmy",
+    Session.single( // (2)
+      host = "localhost",
+      port = 5432,
+      user = "jimmy",
       database = "world",
-      password = Some("banana"),
+      password = Some("banana")
     )
 
   val c: Command[String] =
@@ -29,10 +29,8 @@ object Hello extends IOApp {
     n.plusMinutes(15)
   }
 
-  def sampleData(s: Session[IO]) = 
-    s.prepare(insertTemperature).use { pc =>
-      pc.execute("downstairs" ~ 72 ~ OffsetDateTime.now())
-    }
+  def sampleData(s: Session[IO]) =
+    s.prepare(insertTemperature).use(pc => pc.execute("downstairs" ~ 72 ~ OffsetDateTime.now()))
 
   val r = scala.util.Random
 
@@ -45,14 +43,13 @@ object Hello extends IOApp {
   def tsz: List[OffsetDateTime] =
     (2500 to 2750).toList.map(n => OffsetDateTime.now().plusMinutes(n.toLong))
 
-
   def getSensors(): IO[String] = IO.delay {
     import scala.sys.process._
     "sensors -j".!!
   }
 
   def run(args: List[String]): IO[ExitCode] =
-    session.use { s =>                                       // (3)
+    session.use { s => // (3)
       for {
         z <- getSensors()
         _ <- IO(println(s"json: $z"))
@@ -68,8 +65,8 @@ object Hello extends IOApp {
 }
 
 /*
-INSERT INTO some_table 
- (ts_column) 
- VALUES 
+INSERT INTO some_table
+ (ts_column)
+ VALUES
  (TIMESTAMP '2011-05-16 15:36:38');
  */

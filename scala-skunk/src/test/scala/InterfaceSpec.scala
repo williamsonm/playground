@@ -13,26 +13,34 @@ class InterfaceSpec extends Specification { def is = s2"""
     decode interface                                  $interfaceTest
   """
 
-  import Wut._
+  import Interfaces._
+  import InterfaceJson._
 
+  val logger = LoggerFactory.getLogger(getClass())
+
+  val temperature = decode[Temperature](temperatureJson)
   def temperatureTest = temperature.isRight must_=== true
+
+  val sensors = decode[List[Sensor]](sensorJson)
   def sensorsTest = sensors.isRight must_=== true
+
+  val interfaceDecode = decode[Interface](sensorJson)
   def interfaceTest = interfaceDecode.isRight must_=== true
+
+  val everything = decode[Interfaces](sampleJson)  
+
+  everything.foreach { is =>
+    is.interfaces.foreach { i =>
+      logger.info(s"${i.name}: ${i.interface.sensors.length}")
+    }
+  }
 }
 
-object Wut {
-
-  val logger = LoggerFactory.getLogger(getClass)
-
-  import Interface._
-
+object InterfaceJson {
   val temperatureJson = """{
         "temp1_input": 27.800,
         "temp1_crit": 105.000
      }"""
-
-  val temperature = decode[Temperature](temperatureJson)
-  logger.info(s"temperature: $temperature")
 
   val sensorJson = """{
      "Adapter": "ACPI interface",
@@ -46,16 +54,7 @@ object Wut {
      }
   }"""
 
-  val sensors = decode[List[Sensor]](sensorJson)
-  logger.info(s"sensors: $sensors")
-
-  val interfaceDecode = decode[Interface](sensorJson)
-  logger.info(s"interface: $interfaceDecode")
-
-  val json = Source
+  val sampleJson = Source
     .fromFile("src/main/resources/sample.json")
     .mkString
-
-  val everything = decode[Interfaces](json)
-  logger.info(s"everything: $everything")
 }
