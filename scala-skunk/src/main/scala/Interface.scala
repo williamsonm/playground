@@ -1,10 +1,10 @@
 import cats.implicits._
 import io.circe._
 import io.circe.generic.semiauto._
+import cats.Show
 
 final case class Temperature(
-    input: Float,
-    crit: Float
+    input: Float
 )
 
 final case class Sensor(
@@ -18,16 +18,18 @@ final case class NamedInterface(name: String, interface: Interface)
 
 final case class Interfaces(interfaces: List[NamedInterface])
 
+object Sensor {
+  implicit val show: Show[Sensor] = Show.fromToString
+}
+
 object Interfaces {
   implicit val decodeTemperature: Decoder[Temperature] = obj =>
     obj.keys.map(_.toList) match {
       case Some(keys) =>
         val result = for {
           input <- keys.find(key => key.startsWith("temp") && key.endsWith("_input"))
-          crit <- keys.find(key => key.startsWith("temp") && key.endsWith(("_crit")))
           inputValue <- obj.downField(input).as[Float].toOption
-          critValue <- obj.downField(crit).as[Float].toOption
-        } yield Temperature(inputValue, critValue)
+        } yield Temperature(inputValue)
 
         result.toRight(DecodingFailure("missing temp keys", Nil))
 

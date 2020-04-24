@@ -7,6 +7,8 @@ import cats.effect.IO
 import cats.effect.Resource
 import cats.implicits._
 import cats.effect.ExitCode
+import fs2.Pipe
+import skunk.data.Completion
 
 object TemperatureData {
   val insertTemperature =
@@ -34,13 +36,21 @@ object TemperatureData {
   def generateTemperatureData(session: Resource[IO, Session[IO]]): IO[ExitCode] =
     session.use { s =>
       for {
-        c <- s.prepare(TemperatureData.insertTemperature).use { pc =>
-          TemperatureData.tsz
-            .traverse(n => pc.execute("downstairs" ~ TemperatureData.sampleTemperature() ~ n))
+        c <- s.prepare(insertTemperature).use { pc =>
+          tsz.traverse(n => pc.execute("downstairs" ~ sampleTemperature() ~ n))
         }
         _ <- IO(println(s"pc: $c"))
-        r <- s.execute(TemperatureData.tq)
+        r <- s.execute(tq)
         _ <- r.traverse_(row => IO(println(s"row: ${row}")))
       } yield ExitCode.Success
+    }
+
+  def writeToDb(session: Resource[IO, Session[IO]]): Pipe[IO, Sensor, Completion] =
+    _.evalMap { sensor =>
+      session.use { s =>
+        s.prepare(insertTemperature).use { pc =>
+          pc.execute(sensor.name ~ sensor.temp.input.toInt ~ OffsetDateTime.now())
+        }
+      }
     }
 }

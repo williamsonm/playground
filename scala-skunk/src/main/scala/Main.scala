@@ -5,6 +5,7 @@ import natchez.Trace.Implicits.noop
 import org.slf4j.LoggerFactory
 import fs2.Pipe
 import cats.effect.concurrent.Deferred
+import cats.Show
 
 object Main extends IOApp {
 
@@ -19,8 +20,8 @@ object Main extends IOApp {
       password = Some("banana")
     )
 
-  def logSensorData: Pipe[IO, Sensor, Unit] =
-    _.map(sensor => logger.info(s"${sensor.name} => ${sensor.temp}"))
+  def logData[T](implicit show: Show[T]): Pipe[IO, T, Unit] =
+    _.map(data => logger.info(show.show(data)))
 
   def run(args: List[String]): IO[ExitCode] = {
     val program = fs2.Stream.eval(Deferred[IO, Unit]).flatMap { switch =>
@@ -28,8 +29,10 @@ object Main extends IOApp {
         logger.info("shutting down")
         switch.complete(()).unsafeRunAsyncAndForget()
       }
-      Sensors.sensorStream
-        .observe(logSensorData)
+      Graphics.dataStream
+        .merge(Sensors.dataStream)
+        .observe(logData)
+        .through(TemperatureData.writeToDb(session))
         .interruptWhen(switch.get.attempt)
     }
     program.compile.drain.as(ExitCode.Success)
