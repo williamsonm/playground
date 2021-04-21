@@ -1,4 +1,4 @@
-scalaVersion := "2.12.5"
+scalaVersion := "2.12.13"
 
 lazy val commonScalacOptions = Seq(
   "-deprecation",                      // Emit warning and location for usages of deprecated APIs.
@@ -55,11 +55,11 @@ scalacOptions in (Compile, console) ~= (_.filterNot (_ == "-Ywarn-unused-import"
 // }
 
 libraryDependencies ++= Seq(
-  "org.typelevel" %% "cats-core" % "1.1.0",
-  "org.typelevel" %% "cats-free" % "1.1.0"
+  "org.typelevel" %% "cats-core" % "2.6.0",
+  "org.typelevel" %% "cats-free" % "2.6.0"
 )
 
-addCompilerPlugin("org.spire-math" %% "kind-projector" % "0.9.6")
+addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.3" cross CrossVersion.full)
 // addCompilerPlugin("com.milessabin" % "si2712fix-plugin_2.11.8" % "1.2.0")
 // addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
 
