@@ -56,7 +56,7 @@ object Build {
     )
 
     lazy val commonSettings = List(
-        scalaVersion := "2.13.1",
+        scalaVersion := "2.13.5",
         scalacOptions ++= commonScalacOptions,
         Compile / console / scalacOptions --= removeOptions
     )
