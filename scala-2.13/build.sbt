@@ -3,7 +3,9 @@ lazy val core = project.in(file("."))
     Build.commonSettings,
     libraryDependencies ++= Seq(
       "org.typelevel" %% "cats-core" % "2.1.0",
-      "org.typelevel" %% "cats-effect" % "2.0.0"
+      "org.typelevel" %% "cats-effect" % "2.0.0",
+
+      "org.scalatest" %% "scalatest" % "3.2.7" % "test"
     ),
     addCompilerPlugin("org.typelevel" %% "kind-projector" % "0.11.3" cross CrossVersion.full),
     addCompilerPlugin("com.olegpy"    %% "better-monadic-for" % "0.3.1")
