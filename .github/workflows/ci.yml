@@ -1,5 +1,9 @@
 name: Continuous Integration
 
+defaults:
+  run: 
+    working-directory: scala-2.13
+
 on:
   pull_request:
     branches: ['*']
@@ -23,13 +27,11 @@ jobs:
 
       - name: Setup Java and Scala
         uses: olafurpg/setup-scala@v10
-        working-directory: scala-2.13
         with:
           java-version: ${{ matrix.java }}
 
       - name: Cache sbt
         uses: actions/cache@v2
-        working-directory: scala-2.13
         with:
           path: |
             ~/.sbt
