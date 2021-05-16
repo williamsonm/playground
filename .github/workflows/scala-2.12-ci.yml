@@ -1,7 +1,7 @@
-name: Continuous Integration 2.12
+name: CI-2.12
 
 defaults:
-  run: 
+  run:
     working-directory: scala-2.12
 
 on:
