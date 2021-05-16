@@ -1,14 +1,15 @@
 package pg
 
-import org.scalatest._
-import org.scalatest.prop._
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.matchers.should
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class BigDecimalSpec extends FlatSpec with PropertyChecks with Matchers {
+class BigDecimalSpec extends AnyFlatSpec with ScalaCheckDrivenPropertyChecks with should.Matchers {
 
   "big decimal" should "what" in {
-    forAll { d: BigDecimal =>
+    forAll { (d: BigDecimal) =>
       whenever (!(d.abs > 1 && d.toString.contains("E-"))) {
-
+        println(s"$d")
       }
     }
   }
