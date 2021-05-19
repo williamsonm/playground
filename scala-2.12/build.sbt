@@ -1,13 +1,12 @@
-
-
-// addCompilerPlugin("com.milessabin" % "si2712fix-plugin_2.11.8" % "1.2.0")
-// addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
+val CatsVersion = "2.6.0"
+val TwitterVersion = "21.4.0"
 
 lazy val core = project.in(file(".")).settings(
   Build.commonSettings,
   libraryDependencies ++= Seq(
-    "org.typelevel" %% "cats-core" % "2.6.0",
-    "org.typelevel" %% "cats-free" % "2.6.0",
+    "org.typelevel" %% "cats-core" % CatsVersion,
+    "org.typelevel" %% "cats-free" % CatsVersion,
+    "com.twitter"   %% "util-core" % TwitterVersion,
 
     "org.scalatest" %% "scalatest" % "3.2.7" % "test"
   ),
