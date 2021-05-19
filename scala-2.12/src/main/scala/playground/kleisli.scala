@@ -1,3 +1,5 @@
+package playground
+
 import cats.data._
 import cats.instances.list._
 import cats.instances.option._

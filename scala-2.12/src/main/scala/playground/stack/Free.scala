@@ -1,4 +1,4 @@
-// package stack
+// package playground.stack
 //
 // import cats._
 //

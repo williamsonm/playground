@@ -1,3 +1,5 @@
+package playground
+
 object mapswitch {
 
   final case class UserId(id: Int) extends AnyVal

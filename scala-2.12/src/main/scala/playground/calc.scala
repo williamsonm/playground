@@ -1,3 +1,5 @@
+package playground
+
 import cats._, cats.data._
 
 trait Calc[F[_]] {

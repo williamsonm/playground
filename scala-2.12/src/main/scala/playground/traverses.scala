@@ -1,3 +1,5 @@
+package playground
+
 import cats._, cats.implicits._
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
