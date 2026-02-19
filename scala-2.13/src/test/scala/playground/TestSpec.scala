@@ -4,6 +4,7 @@ import collection.mutable.Stack
 import org.scalatest._
 import flatspec._
 import matchers._
+import StringTests._
 
 class ExampleSpec extends AnyFlatSpec with should.Matchers {
 
@@ -20,5 +21,14 @@ class ExampleSpec extends AnyFlatSpec with should.Matchers {
     a [NoSuchElementException] should be thrownBy {
       emptyStack.pop()
     }
+  }
+
+  it should "genP3" in {
+    genP3(123, 3) === 123123123
+  }
+
+  it should "genP2" in {
+    val result = genP2(123, 3)
+    result should be ("123123123")
   }
 }
